@@ -11,23 +11,29 @@ from ui_form import Ui_MainWindow
 
 class MainWindow(QtWidgets.QMainWindow):
 
-    loadfile = ""
-    savefile = ""
+    loadfile:str = ""
+    savefile:str = ""
+    content:str = ""
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.loadFile.clicked.connect(self.LoadFile)
+        self.ui.saveFile.clicked.connect(self.SaveFile)
 
     def LoadFile(self):
-        text:str = ""
-        self.loadfile = QtWidgets.QFileDialog.getOpenFileName(self, "Open Save File", "/", filter="*.txt")
-        with open(self.loadfile[0], 'r') as lf:
-            text = lf.read()
-        text = base64.b64decode(text).decode('utf-8')
-        print(text)
+        self.loadfile = QtWidgets.QFileDialog.getOpenFileName(self, "Open Save File", "/", filter="*.txt")[0]
+        self.savefile = self.loadfile + "1.txt"
+        with open(self.loadfile, 'r') as lf:
+            self.content = lf.read()
+        self.content = base64.b64decode(self.content).decode('utf-8')
         return
+
+    def SaveFile(self):
+        self.content = base64.b64encode(bytes(self.content, "utf-8")).decode("utf-8")
+        with open(self.savefile, 'w') as sf:
+            sf.write(self.content)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
