@@ -8,7 +8,7 @@ NoneType = type(None)
 class TreeItem:
     """A Json item corresponding to a line in QTreeView"""
 
-    def __init__(self, parent: typing.Union["TreeItem", None] = None): # type: ignore
+    def __init__(self, parent: typing.Union["TreeItem", None] = None):
         self._parent = parent
         self._key = ""
         self._value = ""
@@ -19,11 +19,11 @@ class TreeItem:
         """Add item as a child"""
         self._children.append(item)
 
-    def child(self, row: int) -> typing.Union["TreeItem", None]: # type: ignore
+    def child(self, row: int) -> typing.Union["TreeItem", None]:
         """Return the child of the current item from the given row"""
         return self._children[row]
 
-    def parent(self) -> typing.Union["TreeItem", None]: # type: ignore
+    def parent(self) -> typing.Union["TreeItem", None]:
         """Return the parent of the current item"""
         return self._parent
 
@@ -67,7 +67,7 @@ class TreeItem:
 
     @classmethod
     def load(
-        cls, value: list | dict, parent: typing.Union["TreeItem", None] = None, sort=False # type: ignore
+        cls, value: list | dict, parent: typing.Union["TreeItem", None] = None, sort=False
     ) -> "TreeItem":
         """Create a 'root' TreeItem from a nested list or a nested dictonary
 

@@ -2,7 +2,6 @@
 import sys, base64, json, jsonmodel
 
 from PySide6 import QtWidgets
-from PySide6.QtGui import QStandardItem, QStandardItemModel
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -21,6 +20,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.loadFile.clicked.connect(self.LoadFile)
+        self.ui.saveFile.clicked.connect(self.SaveFile)
 
     def LoadFile(self) -> None:
         self.loadfile = QtWidgets.QFileDialog.getOpenFileName(self, "Open Save File", "/", filter="*.txt")[0]
